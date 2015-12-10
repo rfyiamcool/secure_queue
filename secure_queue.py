@@ -15,8 +15,8 @@ r = MessageQueue(**addr)
 class SchedulerWorker(object):
 
     def __init__(self,queue, thread_num=5):
-        self.queue = queue
-        self.ack_queue = "ack_%s"%queue
+        queue = 'queue'
+        r.set_queue(queue)
         self.mutex= Lock()
         self.thread_num = thread_num
 
@@ -35,15 +35,12 @@ class SchedulerWorker(object):
     def spawn_run(self):
         while True:
             if self.mutex.acquire(1):
-                res = r.zrangebyscore(self.ack_queue)
+                res = r.zrangebyscore()
                 for i in res:
-                    print i
-                    r.zrem(self.ack_queue,i)
-                    r.rpush(self.queue,i)
+                    r.zrem(i)
+                    r.rpush(i)
                 self.mutex.release()
             time.sleep(0.1)
-
-
 
 if __name__ == '__main__':
     queue = 'queue'

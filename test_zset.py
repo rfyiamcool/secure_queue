@@ -7,6 +7,7 @@ from mq import MessageQueue
 addr = {
     "host":"127.0.0.1",
     "port":6379,
+    "queue":'queue'
 }
 
 r = MessageQueue(**addr)
@@ -25,8 +26,7 @@ if __name__ == "__main__":
     queue = 'queue'
     ack_queue = "ack_%s"%queue
     for _i in range(100):
-        r.zadd(ack_queue,random_str(10),int(time.time()))
-        time.sleep(0.1)
+        r.zadd(random_str(10),int(time.time()))
     res = r._conn.zrangebyscore(ack_queue,0,int(time.time()))
     print res
 
