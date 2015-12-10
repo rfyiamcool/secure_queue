@@ -15,7 +15,6 @@ r = MessageQueue(**addr)
 class SchedulerWorker(object):
 
     def __init__(self,queue, thread_num=5):
-        queue = 'queue'
         r.set_queue(queue)
         self.mutex= Lock()
         self.thread_num = thread_num
