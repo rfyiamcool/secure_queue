@@ -9,8 +9,16 @@ class MessageQueue(object):
     def __init__(self, host, port):
         self._conn = redis.Redis(connection_pool=redis.BlockingConnectionPool(max_connections=15, host=host, port=port))
 
-    def rpush(self, queue, msg):
+    def rpush(self, queue, msg, timeout=0):
+        ack_queue = "ack_%s"%queue
         self._conn.rpush(queue, msg)
+        if timeout:
+            self.zadd(ack_queue, get_time()+timeout ,msg)
+        return True
+    
+    def commit(self, msg):
+        ack_queue = "ack_%s"%queue
+        return self.zrem(ack_queue ,msg)
 
     def lpop(self, queue):
         msg = self._conn.spop(queue)
@@ -47,4 +55,9 @@ class MessageQueue(object):
 
 
 if __name__ == "__main__":
-    pass
+    addr = {
+        "host":"127.0.0.1",
+        "port":6379,
+    }
+    
+    r = MessageQueue(**addr)
