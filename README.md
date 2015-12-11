@@ -1,6 +1,6 @@
 # secure_queue
 
-一句话，secure_queue可以让redis支持ACK(消息确认), 值得一用,更多的介绍 [请点击](http://xiaorui.cc)
+一句话，secure_queue可以让redis支持ACK(消息确认), 值得一用,更多的介绍 [请点击](http://xiaorui.cc/2015/12/11/%E4%BD%BF%E7%94%A8python%E5%AE%9E%E7%8E%B0redis%E7%9A%84ackcommit%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6/)
 
 很喜欢使用redis做MQ消息队列, 使用他的List类型结构实现队列, 简单高效性能极好的优点, 但是相比rabbitmq、kafka又没有消息确认的特性. 那么我通过实现一个服务来扩展redis的消息确认功能. 已经封装了server及client，很易用. 
 
