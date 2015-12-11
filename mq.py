@@ -43,15 +43,15 @@ class MessageQueue(object):
             res = [res]
         return res
 
-    def sadd(self, queue, value):
-        return self._conn.sadd(queue, value)
-
-    def spop(self, queue):
-        msg = self._conn.spop(queue)
-        return msg if msg else msg
-
-    def srem(self, queue, value):
-        return self._conn.srem(queue, value)
+#    def sadd(self, queue, value):
+#        return self._conn.sadd(queue, value)
+#
+#    def spop(self, queue):
+#        msg = self._conn.spop(queue)
+#        return msg if msg else msg
+#
+#    def srem(self, queue, value):
+#        return self._conn.srem(queue, value)
 
 
 if __name__ == "__main__":
