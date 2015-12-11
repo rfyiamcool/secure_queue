@@ -1,8 +1,7 @@
 #coding:utf-8
-import time
 import redis
 
-from utils import get_time
+from utils import get_time, get_uuid
 
 class MessageQueue(object):
 
@@ -17,7 +16,9 @@ class MessageQueue(object):
     def rpush(self, msg, timeout=0):
         self._conn.rpush(self.queue, msg)
         if timeout:
+            msg = "%s%s"%(msg,get_uuid())
             self.zadd(get_time()+timeout ,msg)
+            return msg
         return True
     
     def commit(self, msg):

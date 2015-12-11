@@ -40,7 +40,7 @@ class SchedulerWorker(object):
                 for i in res:
                     logger.info(i)
                     r.zrem(i)
-                    r.rpush(i)
+                    r.rpush(i[:-32])
                 self.mutex.release()
             time.sleep(0.1)
 

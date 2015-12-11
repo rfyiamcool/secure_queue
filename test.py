@@ -15,11 +15,11 @@ def test_only():
     r.rpush('http://github.com/rfyiamcool')
 
 def test_commit():
-    r.rpush('xiaorui.cc',timeout=5)
-    r.commit('xiaorui.cc')
+    zid = r.rpush('xiaorui.cc',timeout=5)
+    r.commit(zid)
     
 def test_performance():
-    for i in range(10000):
+    for i in range(1):
         r.rpush(random.randrange(1,10000),timeout=10)
     
 r = MessageQueue(**addr)
