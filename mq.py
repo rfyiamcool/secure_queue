@@ -8,8 +8,7 @@ class MessageQueue(object):
 
     def __init__(self, host, port, queue='queue'):
         self._conn = redis.Redis(connection_pool=redis.BlockingConnectionPool(max_connections=15, host=host, port=port))
-        self.queue = queue
-        self.ack_queue = "ack_%s"%queue
+        self.set_queue(queue)
 
     def set_queue(self, queue):
         self.queue = queue
