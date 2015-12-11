@@ -17,18 +17,18 @@ class MessageQueue(object):
     def rpush(self, msg, timeout=0):
         self._conn.rpush(self.queue, msg)
         if timeout:
-            self.zadd(self.ack_queue, get_time()+timeout ,msg)
+            self.zadd(get_time()+timeout ,msg)
         return True
     
     def commit(self, msg):
-        return self.zrem(self.ack_queue ,msg)
+        return self.zrem(msg)
 
     def lpop(self):
         msg = self._conn.lpop(self.queue)
         return msg
 
     def zadd(self, timestamp, value):
-        return self._conn.zadd(self.ack_queue, timestamp, value)
+        return self._conn.zadd(self.ack_queue, value, timestamp)
 
     def zrem(self, value):
         return self._conn.zrem(self.ack_queue, value)
